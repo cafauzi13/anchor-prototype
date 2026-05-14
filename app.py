@@ -14,6 +14,7 @@ FIX: Semua HTML menggunakan inline styles penuh — tidak bergantung pada CSS cl
 
 import streamlit as st
 import time
+import streamlit.components.v1 as components
 
 # ─────────────────────────────────────────────
 # KONFIGURASI HALAMAN
@@ -131,16 +132,6 @@ audio {
     margin-top: 0.5rem;
     filter: sepia(0.5) hue-rotate(20deg);
 }
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(8px); }
-    to   { opacity: 1; transform: translateY(0); }
-}
-.fade-in { animation: fadeIn 0.6s ease forwards; }
-
-@media (max-width: 640px) {
-    .main .block-container { padding: 1.5rem 1rem 3rem !important; }
-}
 </style>
 """, unsafe_allow_html=True)
 
@@ -181,19 +172,22 @@ def render_progress(current_step: int):
                 '<div style="flex:1; height:3px; border-radius:99px; '
                 'background:#5c5040; transition:background 0.5s ease;"></div>'
             )
-    st.markdown(
-        f'<div style="display:flex; gap:8px; margin-bottom:2.5rem; padding:0 4px;">'
-        f'{bars}</div>',
-        unsafe_allow_html=True,
-    )
+            
+    components.html(f"""
+    <style>body {{ margin: 0; padding: 0; }}</style>
+    <div style="display:flex; gap:8px; margin-bottom:1rem; padding:0 4px;">
+        {bars}
+    </div>
+    """, height=30)
 
 
 # ─────────────────────────────────────────────
 # HELPER: Render Logo (inline styles)
 # ─────────────────────────────────────────────
 def render_logo():
-    st.markdown("""
-    <div class="fade-in" style="text-align:center; margin-bottom:2.5rem;">
+    components.html("""
+    <style>body { margin: 0; padding: 0; }</style>
+    <div style="text-align:center; font-family:'DM Sans', sans-serif;">
         <span style="font-size:2.8rem; display:block; margin-bottom:0.3rem;
               filter:drop-shadow(0 0 14px rgba(232,146,58,0.5));">⚓</span>
         <div style="font-family:'Lora',serif; font-size:1.6rem; color:#e8923a;
@@ -201,7 +195,7 @@ def render_logo():
         <div style="font-size:0.78rem; color:#9e8e7a; letter-spacing:0.12em;
              text-transform:uppercase; margin-top:4px;">Day Closing Signal System</div>
     </div>
-    """, unsafe_allow_html=True)
+    """, height=160)
 
 
 # ─────────────────────────────────────────────
@@ -211,13 +205,14 @@ def render_step_0():
     render_logo()
 
     # Urgency card
-    st.markdown("""
-    <div class="fade-in" style="
+    components.html("""
+    <style>body { margin: 0; padding: 0; }</style>
+    <div style="
+        font-family: 'DM Sans', sans-serif;
         background: linear-gradient(135deg, #1c1510 0%, #1a1208 100%);
         border: 1px solid rgba(232,146,58,0.25);
         border-radius: 14px;
         padding: 1.6rem;
-        margin-bottom: 1.6rem;
         text-align: center;
     ">
         <div style="font-family:'Lora',serif; font-size:1.1rem; color:#e8923a;
@@ -253,16 +248,17 @@ def render_step_0():
             </li>
         </ul>
     </div>
-    """, unsafe_allow_html=True)
+    """, height=380)
 
     # Solution card
-    st.markdown("""
-    <div class="fade-in" style="
+    components.html("""
+    <style>body { margin: 0; padding: 0; }</style>
+    <div style="
+        font-family: 'DM Sans', sans-serif;
         background: #1c1915;
         border: 1px solid rgba(232,146,58,0.25);
         border-radius: 14px;
         padding: 1.5rem 1.6rem;
-        margin-bottom: 1.2rem;
     ">
         <div style="font-size:0.7rem; color:#e8923a; letter-spacing:0.2em;
              text-transform:uppercase; font-weight:500; margin-bottom:0.6rem;">Solusinya?</div>
@@ -279,7 +275,7 @@ def render_step_0():
             <span>🌿 Anchor Ritual</span>
         </div>
     </div>
-    """, unsafe_allow_html=True)
+    """, height=250)
 
     st.markdown("<br>", unsafe_allow_html=True)
 
@@ -287,11 +283,12 @@ def render_step_0():
         st.session_state.step = 1
         st.rerun()
 
-    st.markdown("""
-    <div style="text-align:center; margin-top:1rem; font-size:0.75rem; color:#5c5040;">
+    components.html("""
+    <style>body { margin: 0; padding: 0; }</style>
+    <div style="font-family: 'DM Sans', sans-serif; text-align:center; margin-top:1rem; font-size:0.75rem; color:#5c5040;">
         Estimasi waktu: ~3 menit
     </div>
-    """, unsafe_allow_html=True)
+    """, height=50)
 
 
 # ─────────────────────────────────────────────
@@ -300,8 +297,9 @@ def render_step_0():
 def render_step_1():
     render_progress(1)
 
-    st.markdown("""
-    <div class="fade-in" style="text-align:center; margin-bottom:1.8rem;">
+    components.html("""
+    <style>body { margin: 0; padding: 0; }</style>
+    <div style="font-family: 'DM Sans', sans-serif; text-align:center;">
         <div style="font-size:0.7rem; color:#e8923a; letter-spacing:0.2em;
              text-transform:uppercase; font-weight:500; margin-bottom:0.5rem;">
              Langkah 1 dari 3</div>
@@ -313,20 +311,10 @@ def render_step_1():
             tapi agar otakmu bisa berhenti menjaganya.
         </div>
     </div>
-    """, unsafe_allow_html=True)
+    """, height=200)
 
     if not st.session_state.vault_submitted:
-        st.markdown("""
-        <div class="fade-in" style="
-            background: #1c1915;
-            border: 1px solid rgba(232,146,58,0.25);
-            border-radius: 14px;
-            padding: 1.5rem 1.6rem;
-            margin-bottom: 1rem;
-            box-shadow: 0 0 30px rgba(232,146,58,0.12), inset 0 1px 0 rgba(255,255,255,0.03);
-        ">
-        """, unsafe_allow_html=True)
-
+        # Native input
         thought = st.text_area(
             label="Apa yang paling mengganggumu malam ini?",
             placeholder="Contoh: Besok ada ujian Kalkulus dan aku belum baca bab 4...\n\nTuliskan apa saja. Tidak ada yang menghakimi.",
@@ -335,7 +323,6 @@ def render_step_1():
             help="Satu pikiran, tugas, atau kekhawatiran. Singkat atau panjang, terserahmu."
         )
 
-        st.markdown("</div>", unsafe_allow_html=True)
         st.markdown("<br>", unsafe_allow_html=True)
 
         col1, col2 = st.columns([3, 1])
@@ -360,30 +347,33 @@ def render_step_1():
         if st.session_state.vault_thought and not st.session_state.vault_thought.startswith("("):
             preview = st.session_state.vault_thought[:120]
             suffix = "..." if len(st.session_state.vault_thought) > 120 else ""
-            st.markdown(f"""
-            <div class="fade-in" style="
+            
+            components.html(f"""
+            <style>body {{ margin: 0; padding: 0; }}</style>
+            <div style="
+                font-family: 'DM Sans', sans-serif;
                 background: #1c1915;
                 border: 1px solid rgba(100,100,80,0.3);
                 border-radius: 14px;
                 padding: 1.2rem 1.4rem;
-                margin-bottom: 1rem;
             ">
                 <div style="font-size:0.72rem; color:#5c5040; margin-bottom:0.5rem;
                      letter-spacing:0.1em; text-transform:uppercase;">Yang tersimpan:</div>
                 <div style="font-family:'Lora',serif; font-size:0.9rem; color:#9e8e7a;
                      font-style:italic; line-height:1.6;">"{preview}{suffix}"</div>
             </div>
-            """, unsafe_allow_html=True)
+            """, height=160)
 
         # Konfirmasi vault
-        st.markdown("""
-        <div class="fade-in" style="
+        components.html("""
+        <style>body { margin: 0; padding: 0; }</style>
+        <div style="
+            font-family: 'DM Sans', sans-serif;
             background: rgba(94,148,94,0.15);
             border: 1px solid rgba(94,148,94,0.35);
             border-radius: 12px;
             padding: 1.4rem 1.5rem;
             text-align: center;
-            margin: 1rem 0;
         ">
             <span style="font-size:2rem; margin-bottom:0.6rem; display:block;">✅</span>
             <div style="font-family:'Lora',serif; color:#a8d5a8; font-size:1rem;
@@ -395,7 +385,7 @@ def render_step_1():
                 Otak yang istirahat selalu berpikir lebih jernih dari otak yang kelelahan.
             </div>
         </div>
-        """, unsafe_allow_html=True)
+        """, height=300)
 
         st.markdown("<br>", unsafe_allow_html=True)
 
@@ -410,8 +400,9 @@ def render_step_1():
 def render_step_2():
     render_progress(2)
 
-    st.markdown("""
-    <div class="fade-in" style="text-align:center; margin-bottom:1.8rem;">
+    components.html("""
+    <style>body { margin: 0; padding: 0; }</style>
+    <div style="font-family: 'DM Sans', sans-serif; text-align:center;">
         <div style="font-size:0.7rem; color:#e8923a; letter-spacing:0.2em;
              text-transform:uppercase; font-weight:500; margin-bottom:0.5rem;">
              Langkah 2 dari 3</div>
@@ -422,7 +413,7 @@ def render_step_2():
             bahwa hari sudah berakhir — jauh lebih kuat dari tekad semata.
         </div>
     </div>
-    """, unsafe_allow_html=True)
+    """, height=180)
 
     # ── Instruction rows — inline styles penuh ──
     def instruction_row(num: str, html_text: str, is_last: bool = False):
@@ -456,46 +447,59 @@ def render_step_2():
             is_last=True)
     )
 
-    st.markdown(f"""
-    <div class="fade-in" style="
+    components.html(f"""
+    <style>body {{ margin: 0; padding: 0; }}</style>
+    <div style="
+        font-family: 'DM Sans', sans-serif;
         background:#1c1915;
         border:1px solid rgba(232,146,58,0.25);
         border-radius:14px;
         padding:1.5rem 1.6rem;
-        margin-bottom:1.2rem;
     ">
         <div style="font-size:0.8rem; color:#e8923a; letter-spacing:0.12em;
              text-transform:uppercase; margin-bottom:0.8rem;">Lakukan sekarang</div>
         {rows_html}
     </div>
-    """, unsafe_allow_html=True)
+    """, height=380)
 
-    # Audio card
-    st.markdown("""
-    <div class="fade-in" style="
+    # Audio card (Bagian Atas - Header)
+    components.html("""
+    <style>body { margin: 0; padding: 0; }</style>
+    <div style="
+        font-family: 'DM Sans', sans-serif;
         background:#1c1915;
         border:1px solid rgba(232,146,58,0.25);
         border-radius:14px;
         padding:1.2rem 1.5rem;
-        margin-bottom:1.2rem;
     ">
         <div style="font-size:0.8rem; color:#5c5040; margin-bottom:0.6rem;
              letter-spacing:0.08em;">🎵 Ambient Sound — Hujan Malam</div>
-    """, unsafe_allow_html=True)
+    </div>
+    """, height=80)
 
+    # Audio (Native Streamlit)
     st.audio(
         "https://upload.wikimedia.org/wikipedia/commons/transcoded/3/36/"
         "Thunderstorm_in_the_night.ogg/Thunderstorm_in_the_night.ogg.mp3",
         format="audio/mp3",
     )
 
-    st.markdown("""
-        <div style="font-size:0.75rem; color:#5c5040; margin-top:0.5rem;">
+    # Audio card (Bagian Bawah - Footer)
+    components.html("""
+    <style>body { margin: 0; padding: 0; }</style>
+    <div style="
+        font-family: 'DM Sans', sans-serif;
+        background:#1c1915;
+        border:1px solid rgba(232,146,58,0.25);
+        border-radius:14px;
+        padding:1.2rem 1.5rem;
+    ">
+        <div style="font-size:0.75rem; color:#5c5040; line-height:1.5;">
             Tidak ada audio? Tenang — lanjutkan saja ke ritual berikutnya.
             Atau nyalakan musik instrumental favoritmu dengan volume rendah.
         </div>
     </div>
-    """, unsafe_allow_html=True)
+    """, height=120)
 
     st.markdown("<br>", unsafe_allow_html=True)
 
@@ -514,8 +518,9 @@ def render_step_3():
         render_completion()
         return
 
-    st.markdown("""
-    <div class="fade-in" style="text-align:center; margin-bottom:1.8rem;">
+    components.html("""
+    <style>body { margin: 0; padding: 0; }</style>
+    <div style="font-family: 'DM Sans', sans-serif; text-align:center;">
         <div style="font-size:0.7rem; color:#e8923a; letter-spacing:0.2em;
              text-transform:uppercase; font-weight:500; margin-bottom:0.5rem;">
              Langkah 3 dari 3</div>
@@ -526,7 +531,7 @@ def render_step_3():
             pikiran dan memberi sinyal pada tubuh bahwa sudah waktunya berhenti.
         </div>
     </div>
-    """, unsafe_allow_html=True)
+    """, height=200)
 
     # ── Ritual options — inline styles penuh ──
     def ritual_row(icon: str, title: str, desc: str, is_last: bool = False):
@@ -555,13 +560,14 @@ def render_step_3():
             is_last=True)
     )
 
-    st.markdown(f"""
-    <div class="fade-in" style="
+    components.html(f"""
+    <style>body {{ margin: 0; padding: 0; }}</style>
+    <div style="
+        font-family: 'DM Sans', sans-serif;
         background:#1c1915;
         border:1px solid rgba(232,146,58,0.25);
         border-radius:14px;
         padding:1.5rem 1.6rem;
-        margin-bottom:1.2rem;
     ">
         <div style="font-size:0.8rem; color:#e8923a; letter-spacing:0.12em;
              text-transform:uppercase; margin-bottom:0.8rem;">
@@ -569,7 +575,7 @@ def render_step_3():
         </div>
         {rituals_html}
     </div>
-    """, unsafe_allow_html=True)
+    """, height=380)
 
     st.markdown("<br>", unsafe_allow_html=True)
 
@@ -578,16 +584,6 @@ def render_step_3():
             st.session_state.ritual_started = True
             st.rerun()
     else:
-        st.markdown("""
-        <div class="fade-in" style="
-            background:#1c1915;
-            border:1px solid rgba(232,146,58,0.25);
-            border-radius:14px;
-            padding:1.5rem 1.6rem;
-            box-shadow:0 0 30px rgba(232,146,58,0.12), inset 0 1px 0 rgba(255,255,255,0.03);
-        ">
-        """, unsafe_allow_html=True)
-
         timer_placeholder = st.empty()
 
         breathing_phases = [
@@ -597,37 +593,49 @@ def render_step_3():
             ("⏸", "Tahan..."),
         ]
 
+        # Timer logic via updating the component layout directly
         for i in range(60, -1, -1):
             phase_idx = ((60 - i) // 4) % 4
             phase_icon, phase_text = breathing_phases[phase_idx]
 
-            timer_placeholder.markdown(f"""
-            <div style="text-align:center; padding:2rem 1rem;">
-                <div style="
-                    width:160px; height:160px; border-radius:50%;
-                    border:3px solid rgba(232,146,58,0.25);
-                    display:flex; flex-direction:column;
-                    align-items:center; justify-content:center;
-                    margin:0 auto 1.2rem;
-                    background:rgba(232,146,58,0.12);
-                    box-shadow:0 0 40px rgba(232,146,58,0.12),
-                               inset 0 0 30px rgba(0,0,0,0.3);
-                ">
-                    <div style="font-family:'Lora',serif; font-size:3rem;
-                         color:#e8923a; line-height:1; font-weight:600;">{i}</div>
-                    <div style="font-size:0.72rem; color:#9e8e7a;
-                         letter-spacing:0.15em; text-transform:uppercase;
-                         margin-top:2px;">detik</div>
-                </div>
-                <div style="font-size:0.82rem; color:#9e8e7a; font-style:italic;">
-                    {phase_icon} {phase_text}
+            html_timer = f"""
+            <style>body {{ margin: 0; padding: 0; }}</style>
+            <div style="
+                font-family: 'DM Sans', sans-serif;
+                background:#1c1915;
+                border:1px solid rgba(232,146,58,0.25);
+                border-radius:14px;
+                padding:1.5rem 1.6rem;
+                box-shadow:0 0 30px rgba(232,146,58,0.12), inset 0 1px 0 rgba(255,255,255,0.03);
+            ">
+                <div style="text-align:center; padding:2rem 1rem;">
+                    <div style="
+                        width:160px; height:160px; border-radius:50%;
+                        border:3px solid rgba(232,146,58,0.25);
+                        display:flex; flex-direction:column;
+                        align-items:center; justify-content:center;
+                        margin:0 auto 1.2rem;
+                        background:rgba(232,146,58,0.12);
+                        box-shadow:0 0 40px rgba(232,146,58,0.12),
+                                   inset 0 0 30px rgba(0,0,0,0.3);
+                    ">
+                        <div style="font-family:'Lora',serif; font-size:3rem;
+                             color:#e8923a; line-height:1; font-weight:600;">{i}</div>
+                        <div style="font-size:0.72rem; color:#9e8e7a;
+                             letter-spacing:0.15em; text-transform:uppercase;
+                             margin-top:2px;">detik</div>
+                    </div>
+                    <div style="font-size:0.82rem; color:#9e8e7a; font-style:italic;">
+                        {phase_icon} {phase_text}
+                    </div>
                 </div>
             </div>
-            """, unsafe_allow_html=True)
+            """
+            
+            with timer_placeholder.container():
+                components.html(html_timer, height=380)
 
             time.sleep(1)
-
-        st.markdown("</div>", unsafe_allow_html=True)
 
         st.session_state.timer_done = True
         st.rerun()
@@ -637,10 +645,10 @@ def render_step_3():
 # COMPLETION SCREEN
 # ─────────────────────────────────────────────
 def render_completion():
-    st.markdown("""
-    <div class="fade-in" style="text-align:center; padding:1rem 0;">
-        <span style="font-size:3.5rem; display:block; margin-bottom:1rem;
-              animation:fadeIn 1s ease;">🌙</span>
+    components.html("""
+    <style>body { margin: 0; padding: 0; }</style>
+    <div style="font-family: 'DM Sans', sans-serif; text-align:center; padding:1rem 0;">
+        <span style="font-size:3.5rem; display:block; margin-bottom:1rem;">🌙</span>
         <div style="font-family:'Lora',serif; font-size:1.4rem; color:#e8923a;
              margin-bottom:0.8rem;">Ritual Selesai</div>
         <div style="font-size:0.88rem; color:#9e8e7a; line-height:1.7;
@@ -652,23 +660,24 @@ def render_completion():
             Besok pagi menantimu dengan energi yang baru.
         </div>
     </div>
-    """, unsafe_allow_html=True)
+    """, height=380)
 
-    st.markdown("""
+    components.html("""
+    <style>body { margin: 0; padding: 0; }</style>
     <div style="
+        font-family: 'DM Sans', sans-serif;
         background:#1c1915;
         border:1px solid rgba(232,146,58,0.25);
         border-radius:14px;
         padding:1.2rem;
         text-align:center;
-        margin-bottom:1.5rem;
     ">
         <div style="font-size:0.75rem; color:#5c5040; line-height:1.6;">
             "Rest is not idle; it is the work that makes all other work possible."<br>
             <span style="font-size:0.7rem;">— Alex Soojung-Kim Pang</span>
         </div>
     </div>
-    """, unsafe_allow_html=True)
+    """, height=120)
 
     st.markdown("<br>", unsafe_allow_html=True)
 
