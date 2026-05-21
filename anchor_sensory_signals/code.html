@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Step 2: Sensory Signals</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&amp;family=Quicksand:wght@300..700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+    :root {
+      --nebula-pink: rgba(210, 188, 250, 0.2);
+    }
+    body {
+      background: radial-gradient(circle at top right, #1d1b26, #111318), 
+                  radial-gradient(circle at bottom left, #1a1625, #111318);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    .glass-card {
+      background: rgba(240, 240, 247, 0.05);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .active-glow {
+      box-shadow: 0 0 20px 2px var(--nebula-pink);
+    }
+    @keyframes wave {
+      0%, 100% { height: 8px; }
+      50% { height: 32px; }
+    }
+    .wave-bar {
+      animation: wave 1.2s ease-in-out infinite;
+    }
+    .wave-bar:nth-child(2) { animation-delay: 0.1s; }
+    .wave-bar:nth-child(3) { animation-delay: 0.2s; }
+    .wave-bar:nth-child(4) { animation-delay: 0.3s; }
+    .wave-bar:nth-child(5) { animation-delay: 0.4s; }
+  </style>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-primary-container": "#9783bd",
+            "primary": "#d2bcfa",
+            "surface": "#111318",
+            "surface-variant": "#33353a",
+            "inverse-on-surface": "#2e3036",
+            "on-tertiary-container": "#9785af",
+            "surface-container": "#1d2025",
+            "surface-dim": "#111318",
+            "on-primary-fixed": "#231043",
+            "background": "#111318",
+            "tertiary-container": "#2d1e41",
+            "primary-fixed": "#ebddff",
+            "on-surface": "#e2e2e9",
+            "surface-container-high": "#282a2f",
+            "outline-variant": "#49454e",
+            "on-background": "#e2e2e9",
+            "tertiary": "#d2beeb",
+            "outline": "#948e99",
+            "on-tertiary-fixed-variant": "#4f4065",
+            "on-secondary-fixed-variant": "#722f54",
+            "on-tertiary": "#38294d",
+            "on-error-container": "#ffdad6",
+            "surface-container-low": "#191c20",
+            "error-container": "#93000a",
+            "surface-container-lowest": "#0c0e13",
+            "on-secondary-fixed": "#3c0127",
+            "tertiary-fixed-dim": "#d2beeb",
+            "secondary-fixed-dim": "#ffafd5",
+            "on-surface-variant": "#cbc4d0",
+            "on-tertiary-fixed": "#221437",
+            "inverse-primary": "#68558b",
+            "inverse-surface": "#e2e2e9",
+            "primary-fixed-dim": "#d2bcfa",
+            "on-primary": "#38265a",
+            "tertiary-fixed": "#eddcff",
+            "on-primary-fixed-variant": "#4f3d72",
+            "surface-tint": "#d2bcfa",
+            "error": "#ffb4ab",
+            "primary-container": "#2d1b4e",
+            "surface-container-highest": "#33353a",
+            "surface-bright": "#37393e",
+            "secondary-fixed": "#ffd8e8",
+            "on-secondary-container": "#f59ec8",
+            "secondary-container": "#753156",
+            "on-error": "#690005",
+            "on-secondary": "#57183c",
+            "secondary": "#ffafd5"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "gutter": "16px",
+            "max-width-content": "1200px",
+            "xl": "80px",
+            "md": "24px",
+            "lg": "48px",
+            "sm": "12px",
+            "xs": "4px",
+            "base": "8px",
+            "margin-mobile": "20px",
+            "margin-desktop": "auto"
+          },
+          "fontFamily": {
+            "body-lg": ["DM Sans"],
+            "body-sm": ["DM Sans"],
+            "headline-xl": ["Quicksand"],
+            "headline-lg-mobile": ["Quicksand"],
+            "label-sm": ["DM Sans"],
+            "headline-md": ["Quicksand"],
+            "label-md": ["DM Sans"],
+            "headline-lg": ["Quicksand"],
+            "body-md": ["DM Sans"]
+          },
+          "fontSize": {
+            "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+            "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "headline-xl": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "600" }],
+            "label-sm": ["10px", { "lineHeight": "12px", "letterSpacing": "0.1em", "fontWeight": "700" }],
+            "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500" }],
+            "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "600" }],
+            "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="text-on-surface font-body-md bg-background">
+<!-- Top Navigation Shell (Filtered for transactional flow: only header remains) -->
+<header class="fixed top-0 w-full z-50 flex items-center justify-between px-margin-mobile h-16 backdrop-blur-xl bg-surface/5">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="waves">waves</span>
+<span class="font-headline-md text-headline-md font-bold text-primary tracking-tight">Anchor</span>
+</div>
+<div class="flex flex-col items-end">
+<span class="font-label-md text-label-md text-primary uppercase tracking-widest">Step 2 of 3</span>
+<div class="w-24 h-1 bg-surface-container rounded-full mt-1 overflow-hidden">
+<div class="w-2/3 h-full bg-primary shadow-[0_0_8px_#d2bcfa]"></div>
+</div>
+</div>
+</header>
+<main class="pt-32 pb-40 px-margin-mobile max-w-content mx-auto">
+<!-- Hero Section -->
+<section class="mb-lg">
+<h1 class="font-headline-xl text-headline-xl text-primary mb-sm">Signal Your Senses.</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-lg">Transitioning to a state of calm begins with your immediate environment.</p>
+</section>
+<!-- Instructions Bento -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md mb-lg">
+<!-- Instruction 1 -->
+<div class="glass-card p-md rounded-3xl flex flex-col gap-sm group hover:bg-white/10 transition-colors duration-500">
+<div class="w-12 h-12 rounded-full bg-primary-container flex items-center justify-center mb-xs">
+<span class="material-symbols-outlined text-primary" data-icon="lightbulb">lightbulb</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Dim your room lights.</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Lower visual stimulation to signal to your brain that the day is winding down.</p>
+</div>
+<!-- Instruction 2 -->
+<div class="glass-card p-md rounded-3xl flex flex-col gap-sm group hover:bg-white/10 transition-colors duration-500">
+<div class="w-12 h-12 rounded-full bg-secondary-container/40 flex items-center justify-center mb-xs">
+<span class="material-symbols-outlined text-secondary" data-icon="spatial_audio_off">spatial_audio_off</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Listen to the space.</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Close your eyes for a moment and identify three distinct sounds in your periphery.</p>
+</div>
+</div>
+<!-- Audio Player Component -->
+<div class="glass-card p-lg rounded-[40px] relative overflow-hidden group">
+<!-- Background Ambient Glow -->
+<div class="absolute -top-24 -right-24 w-64 h-64 bg-primary/10 rounded-full blur-[80px] group-hover:bg-primary/20 transition-all duration-700"></div>
+<div class="relative z-10 flex flex-col md:flex-row items-center gap-lg">
+<!-- Album Art / Visualizer -->
+<div class="relative w-48 h-48 rounded-full flex items-center justify-center border-2 border-white/10 p-4">
+<img alt="Cosmic space with nebulas" class="absolute inset-0 w-full h-full object-cover rounded-full opacity-40 mix-blend-screen" data-alt="A cinematic, high-definition photograph of a swirling deep space nebula, featuring rich purples, soft lavenders, and glowing pink celestial clouds. The lighting is ethereal and moody, creating a serene, multi-dimensional depth with tiny, crisp starlight points scattered throughout. The overall aesthetic is tranquil and grounding, perfectly reflecting a celestial sleep hygiene ritual." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGD5TvHls1tBgwhXgkD6PoYajzWuBTSilcEGtxBcfbLhZu0-FPnvCxPUADiUZdNnFfAhn53L3qBmPjB2V3OwfMRzmWlSnrMapIFuywmzxzCvLdgjyF5Trt-XdL0yUuEgkybhq0XZIdavZRIn1WOO8XFXJ51k89-DfKi-pqcWhnRAxMrmAsfHxvhBrE1vKRiHiRFVpaA5J_8E4QsqizHwgTsJCp9v5XaV0oHWkKPOG7a-mOiiWB1RxZrEAVr5Nmp5bpia0Lo6LGe-3k"/>
+<!-- Wave Visualizer -->
+<div class="flex items-center gap-1 h-12">
+<div class="wave-bar w-1.5 bg-primary rounded-full"></div>
+<div class="wave-bar w-1.5 bg-secondary rounded-full"></div>
+<div class="wave-bar w-1.5 bg-primary rounded-full"></div>
+<div class="wave-bar w-1.5 bg-secondary rounded-full"></div>
+<div class="wave-bar w-1.5 bg-primary rounded-full"></div>
+</div>
+</div>
+<!-- Controls -->
+<div class="flex-1 text-center md:text-left">
+<span class="font-label-md text-label-md text-secondary uppercase tracking-[0.2em] block mb-2">Ambient Space</span>
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-md">Cosmic Drift</h2>
+<div class="flex items-center justify-center md:justify-start gap-md">
+<button class="w-14 h-14 rounded-full bg-gradient-to-br from-primary to-tertiary flex items-center justify-center text-on-primary shadow-lg active:scale-95 transition-transform" id="playBtn">
+<span class="material-symbols-outlined text-[32px]" data-icon="pause" id="playIcon">pause</span>
+</button>
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Playing through</span>
+<span class="font-body-md text-body-md text-primary font-medium">Internal Speakers</span>
+</div>
+</div>
+<!-- Progress Bar -->
+<div class="mt-lg w-full">
+<div class="w-full h-1 bg-surface-variant/30 rounded-full relative">
+<div class="absolute left-0 top-0 h-full w-1/3 bg-primary rounded-full">
+<div class="absolute right-0 -top-1 w-3 h-3 bg-primary rounded-full shadow-[0_0_10px_#d2bcfa]"></div>
+</div>
+</div>
+<div class="flex justify-between mt-2 font-label-md text-label-md text-on-surface-variant/60">
+<span>02:45</span>
+<span>08:00</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- CTA Fixed Footer -->
+<footer class="fixed bottom-0 left-0 w-full z-50 p-margin-mobile md:p-lg flex justify-center pointer-events-none">
+<button class="pointer-events-auto group relative flex items-center justify-center w-full max-w-md px-lg py-5 rounded-full bg-gradient-to-r from-secondary to-primary text-on-primary font-headline-md text-headline-md shadow-[0_10px_30px_rgba(255,175,213,0.3)] hover:shadow-[0_15px_40px_rgba(210,188,250,0.4)] transition-all duration-300 transform hover:-translate-y-1" onclick="window.location.reload()">
+      Proceed to Ritual
+      <span class="material-symbols-outlined ml-2 transition-transform group-hover:translate-x-1" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</footer>
+<script>
+    const playBtn = document.getElementById('playBtn');
+    const playIcon = document.getElementById('playIcon');
+    const waveBars = document.querySelectorAll('.wave-bar');
+    let isPlaying = true;
+
+    playBtn.addEventListener('click', () => {
+      isPlaying = !isPlaying;
+      if (isPlaying) {
+        playIcon.textContent = 'pause';
+        waveBars.forEach(bar => bar.style.animationPlayState = 'running');
+      } else {
+        playIcon.textContent = 'play_arrow';
+        waveBars.forEach(bar => bar.style.animationPlayState = 'paused');
+      }
+    });
+
+    // Subtle parallax effect on cards
+    document.addEventListener('mousemove', (e) => {
+      const cards = document.querySelectorAll('.glass-card');
+      const xAxis = (window.innerWidth / 2 - e.pageX) / 50;
+      const yAxis = (window.innerHeight / 2 - e.pageY) / 50;
+      
+      cards.forEach(card => {
+        card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+      });
+    });
+  </script>
+</body></html>
