@@ -1,22 +1,30 @@
 # ==========================================================================
 # app.py - Main Router & State Management 
 # ==========================================================================
+
 import os
 import sys
-import streamlit as st  # <-- WAJIB: Kamu lupa mengimpor streamlit!
+import streamlit as st
 
-# Menambahkan root project dan sub-folder src ke sys.path agar Streamlit Cloud tidak bingung
-current_dir = os.path.dirname(os.path.abspath(__file__))
-if current_dir not in sys.path:
-    sys.path.append(current_dir)
-    sys.path.append(os.path.join(current_dir, "src"))
+# Cari path absolut dari direktori tempat app.py berada (/mount/src/anchor-prototype)
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+SRC_DIR = os.path.join(BASE_DIR, "src")
 
-# Impor halaman/modul dari sub-folder src
+# Suntikkan kedua path tersebut ke urutan paling atas sys.path
+if BASE_DIR not in sys.path:
+    sys.path.insert(0, BASE_DIR)
+if SRC_DIR not in sys.path:
+    sys.path.insert(0, SRC_DIR)
+
+# Lakukan impor secara eksplisit dari modul src
 try:
     from src.landing import render_step_0
 except ModuleNotFoundError:
-    # Fallback jika Streamlit Cloud menganggap root-nya adalah folder 'src' itu sendiri
-    from landing import render_step_0
+    try:
+        from landing import render_step_0
+    except ModuleNotFoundError as e:
+        st.error(f"Kritis: File 'landing.py' tidak ditemukan di folder {SRC_DIR} atau {BASE_DIR}. Periksa struktur folder di GitHub Anda.")
+        st.stop()
 
 # 1. KONFIGURASI HALAMAN UTAMA
 st.set_page_config(
