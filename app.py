@@ -1,14 +1,23 @@
 # ==========================================================================
-# app.py - Main Router & State Management (Anchor Cosmic Deep Space)
+# app.py - Main Router & State Management 
 # ==========================================================================
 import os
 import sys
+import streamlit as st  # <-- WAJIB: Kamu lupa mengimpor streamlit!
 
-# Menambahkan root direktori ke sys.path secara dinamis
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+# Menambahkan root project dan sub-folder src ke sys.path agar Streamlit Cloud tidak bingung
+current_dir = os.path.dirname(os.path.abspath(__file__))
+if current_dir not in sys.path:
+    sys.path.append(current_dir)
+    sys.path.append(os.path.join(current_dir, "src"))
 
-# Baris impor kamu yang lain di bawahnya...
-from src.landing import render_step_0
+# Impor halaman/modul dari sub-folder src
+try:
+    from src.landing import render_step_0
+except ModuleNotFoundError:
+    # Fallback jika Streamlit Cloud menganggap root-nya adalah folder 'src' itu sendiri
+    from landing import render_step_0
+
 # 1. KONFIGURASI HALAMAN UTAMA
 st.set_page_config(
     page_title="Anchor — Day Closing Signal System",
@@ -17,7 +26,7 @@ st.set_page_config(
     initial_sidebar_state="collapsed",
 )
 
-# 2. LOAD GLOBAL CSS (Membaca file style.css yang sudah kita buat dari DESIGN.md)
+# 2. LOAD GLOBAL CSS (Membaca file style.css)
 def load_global_css(file_name):
     try:
         with open(file_name, "r") as f:
@@ -27,7 +36,7 @@ def load_global_css(file_name):
 
 load_global_css("style.css")
 
-# 3. INITIALIZATION SESSION STATE (Otak Logika Aliran Linier)
+# 3. INITIALIZATION SESSION STATE
 if 'step' not in st.session_state:
     st.session_state.step = 0
 if 'vault_submitted' not in st.session_state:
@@ -39,14 +48,11 @@ if 'timer_done' not in st.session_state:
 if 'ritual_started' not in st.session_state:
     st.session_state.ritual_started = False
 
-# 4. ROUTER UTAMA (Memanggil modul halaman secara dinamis)
+# 4. ROUTER UTAMA
 if st.session_state.step == 0:
-    # Memanggil file landing.py yang sudah membaca code.html Stitch
-    from src.landing import render_step_0
     render_step_0()
 
 elif st.session_state.step == 1:
-    # Sementara pakai logika fungsional dasar kita kemarin sambil nunggu HTML Vault selesai
     st.subheader("Step 1: The Mental Vault 🔒")
     st.write("UI sedang dalam pematangan oleh tim desainer. Fitur fungsional tetap aktif.")
     
@@ -68,7 +74,6 @@ elif st.session_state.step == 2:
 
 elif st.session_state.step == 3:
     st.subheader("Step 3: The Anchor Ritual 🌿")
-    # Logika timer sederhana untuk pengujian state
     if not st.session_state.timer_done:
         st.write("Lakukan pernapasan kotak sejenak...")
         if st.button("Selesaikan Ritual"):
