@@ -1,8 +1,14 @@
 # ==========================================================================
 # app.py - Main Router & State Management (Anchor Cosmic Deep Space)
 # ==========================================================================
-import streamlit as st
+import os
+import sys
 
+# Menambahkan root direktori ke sys.path secara dinamis
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
+# Baris impor kamu yang lain di bawahnya...
+from src.landing import render_step_0
 # 1. KONFIGURASI HALAMAN UTAMA
 st.set_page_config(
     page_title="Anchor — Day Closing Signal System",
