@@ -1,0 +1,113 @@
+/* ==========================================================================
+   style.css - Anchor Cosmic Deep Space Design System
+   ========================================================================== */
+
+/* ── 1. IMPORT FONTS ── */
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@600;700&family=DM+Sans:wght@400;500;700&display=swap');
+
+/* ── 2. GLOBAL OVERRIDES (STREAMLIT BASE) ── */
+html, body, [class*="css"] {
+    font-family: 'DM Sans', sans-serif !important;
+    background-color: #111318 !important; /* surface / background */
+    color: #e2e2e9 !important; /* on-surface */
+}
+
+/* Membatasi lebar konten di tengah agar terasa seperti aplikasi mobile/tablet */
+.main .block-container {
+    max-width: 600px !important;
+    margin: 0 auto !important;
+    padding: 2rem 1rem 4rem !important;
+}
+
+/* Sembunyikan Header & Footer bawaan Streamlit */
+#MainMenu, footer, header { visibility: hidden; }
+.stDeployButton { display: none; }
+
+/* ── 3. HEADLINE STYLES (QUICKSAND) ── */
+h1, h2, h3, .headline-font {
+    font-family: 'Quicksand', sans-serif !important;
+    color: #e2e2e9 !important;
+    letter-spacing: -0.02em !important;
+}
+
+/* ── 4. STREAMLIT NATIVE COMPONENTS CUSTOMIZATION ── */
+
+/* A. TEXT AREA (The Mental Vault Input) */
+div.stTextArea > label {
+    font-family: 'DM Sans', sans-serif !important;
+    font-size: 14px !important; /* body-sm */
+    color: #cbc4d0 !important; /* on-surface-variant */
+}
+
+div.stTextArea textarea {
+    background-color: #0c0e13 !important; /* surface-container-lowest */
+    border: 1px solid rgba(148, 142, 153, 0.2) !important; /* outline dengan opasitas 20% */
+    border-radius: 16px !important; /* rounded-xl (organic & soft) */
+    color: #e2e2e9 !important;
+    font-family: 'DM Sans', sans-serif !important;
+    font-size: 16px !important; /* body-md */
+    line-height: 24px !important;
+    padding: 1rem !important;
+    caret-color: #ffafd5 !important; /* Nebula Pink cursor */
+    transition: all 0.3s ease !important;
+}
+
+div.stTextArea textarea:focus {
+    border-color: #ffafd5 !important; /* Nebula Pink focus border */
+    box-shadow: 0 0 15px rgba(255, 175, 213, 0.2) !important; /* Nebula Pink soft glow */
+}
+
+/* B. BUTTONS (Pill-shaped dengan Gradasi Nebula Pink ke Soft Lavender) */
+div.stButton > button {
+    background: linear-gradient(135deg, #ffafd5 0%, #d2beeb 100%) !important; /* Nebula Pink to Soft Lavender */
+    color: #38265a !important; /* on-primary / Deep Space Purple text untuk legibilitas */
+    font-family: 'DM Sans', sans-serif !important;
+    font-weight: 700 !important;
+    font-size: 16px !important;
+    letter-spacing: 0.05em !important;
+    text-transform: uppercase !important;
+    border: none !important;
+    border-radius: 9999px !important; /* rounded-full (pill-shaped) */
+    padding: 0.75rem 2rem !important;
+    width: 100% !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    box-shadow: 0 4px 15px rgba(255, 175, 213, 0.15) !important;
+}
+
+div.stButton > button:hover {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 6px 20px rgba(255, 175, 213, 0.3) !important; /* Lebih berpendar saat di-hover */
+}
+
+div.stButton > button:active {
+    transform: translateY(0) !important;
+}
+
+/* Modifikasi tombol "Lewati" atau tombol di kolom terakhir agar menjadi Ghost Button */
+div[data-testid="column"]:last-child div.stButton > button {
+    background: transparent !important;
+    color: #d2beeb !important; /* Soft Lavender */
+    border: 1px solid rgba(210, 190, 235, 0.4) !important; /* Soft Lavender stroke */
+    box-shadow: none !important;
+}
+
+/* C. STREAMLIT AUDIO PLAYER STYLING */
+audio {
+    width: 100%;
+    margin-top: 1rem;
+    border-radius: 9999px;
+    filter: invert(0.9) hue-rotate(260deg) saturate(0.5); /* Menyelaraskan rona pemutar audio agar masuk ke tema ungu/pink gelap */
+}
+
+/* D. CUSTOM GLASSMORPHISM CARD (Bisa dipakai di st.markdown) */
+.glass-card {
+    background: rgba(240, 240, 247, 0.06) !important; /* Tonal Translucency Level 1 (6% opacity) */
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border: 1px solid rgba(226, 226, 233, 0.1) !important; /* Starlight White 10% opacity */
+    border-top: 1px solid rgba(226, 226, 233, 0.2) !important; /* Efek light source dari atas */
+    border-radius: 16px !important;
+    padding: 1.5rem;
+    margin-bottom: 1.2rem;
+}
