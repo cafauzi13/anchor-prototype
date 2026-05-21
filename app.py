@@ -8,22 +8,22 @@ import streamlit as st
 
 # Cari path absolut dari direktori tempat app.py berada (/mount/src/anchor-prototype)
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-SRC_DIR = os.path.join(BASE_DIR, "src")
+SCR_DIR = os.path.join(BASE_DIR, "scr")
 
 # Suntikkan kedua path tersebut ke urutan paling atas sys.path
 if BASE_DIR not in sys.path:
     sys.path.insert(0, BASE_DIR)
-if SRC_DIR not in sys.path:
-    sys.path.insert(0, SRC_DIR)
+if SCR_DIR not in sys.path:
+    sys.path.insert(0, SCR_DIR)
 
-# Lakukan impor secara eksplisit dari modul src
+# Lakukan impor secara eksplisit dari modul scr
 try:
-    from src.landing import render_step_0
+    from scr.landing import render_step_0
 except ModuleNotFoundError:
     try:
         from landing import render_step_0
     except ModuleNotFoundError as e:
-        st.error(f"Kritis: File 'landing.py' tidak ditemukan di folder {SRC_DIR} atau {BASE_DIR}. Periksa struktur folder di GitHub Anda.")
+        st.error(f"Kritis: File 'landing.py' tidak ditemukan di folder {SCR_DIR} atau {BASE_DIR}. Periksa struktur folder di GitHub Anda.")
         st.stop()
 
 # 1. KONFIGURASI HALAMAN UTAMA
