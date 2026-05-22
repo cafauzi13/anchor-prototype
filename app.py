@@ -2,26 +2,25 @@ import os
 import sys
 import streamlit as st
 
-# 1. MANAGEMENT PATH
+# ==========================================
+# 1. BYPASS STREAMLIT CLOUD NAMESPACE BUG
+# ==========================================
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-if BASE_DIR not in sys.path:
-    sys.path.append(BASE_DIR)
+SRC_DIR = os.path.join(BASE_DIR, "src")
 
-# --- DEBUGGING SEMENTARA (TAMPILKAN DI LAYAR STREAMLIT) ---
-# Hapus atau comment blok ini kalau aplikasi sudah jalan normal
-st.write("Current Working Directory:", os.getcwd())
-st.write("Isi folder root:", os.listdir(BASE_DIR))
-try:
-    st.write("Isi folder src:", os.listdir(os.path.join(BASE_DIR, "src")))
-except FileNotFoundError:
-    st.error("Folder 'src' BENAR-BENAR TIDAK DITEMUKAN oleh sistem Streamlit!")
-# ----------------------------------------------------------
+# Masukkan folder 'src' milik Anda langsung ke prioritas paling atas pencarian Python
+if SRC_DIR not in sys.path:
+    sys.path.insert(0, SRC_DIR)
 
-# 2. IMPOR MODUL DARI FOLDER SRC
+# ==========================================
+# 2. IMPOR MODUL (TANPA AWALAN 'src.')
+# ==========================================
 try:
-    from src.landing import render_step_0
+    # Karena folder src sudah dimasukkan ke sys.path, 
+    # kita bisa langsung memanggil nama file di dalamnya.
+    from landing import render_step_0
 except ModuleNotFoundError as e:
-    st.error(f"Kritis: Gagal memuat modul dari folder 'src'. Detail: {e}")
+    st.error(f"Kritis: Gagal memuat modul 'landing'. Detail: {e}")
     st.stop()
 
 # ==========================================
