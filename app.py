@@ -1,30 +1,17 @@
 import os
-import sys
 import streamlit as st
 
 # ==========================================
-# 1. BYPASS STREAMLIT CLOUD NAMESPACE BUG
-# ==========================================
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-SRC_DIR = os.path.join(BASE_DIR, "src")
-
-# Masukkan folder 'src' milik Anda langsung ke prioritas paling atas pencarian Python
-if SRC_DIR not in sys.path:
-    sys.path.insert(0, SRC_DIR)
-
-# ==========================================
-# 2. IMPOR MODUL (TANPA AWALAN 'src.')
+# 1. IMPOR MODUL DARI FOLDER 'core'
 # ==========================================
 try:
-    # Karena folder src sudah dimasukkan ke sys.path, 
-    # kita bisa langsung memanggil nama file di dalamnya.
-    from landing import render_step_0
+    from core.landing import render_step_0
 except ModuleNotFoundError as e:
-    st.error(f"Kritis: Gagal memuat modul 'landing'. Detail: {e}")
+    st.error(f"Kritis: Gagal memuat modul 'landing' dari folder 'core'. Detail: {e}")
     st.stop()
 
 # ==========================================
-# 3. KONFIGURASI HALAMAN UTAMA
+# 2. KONFIGURASI HALAMAN UTAMA
 # ==========================================
 st.set_page_config(
     page_title="Anchor — Day Closing Signal System",
@@ -34,8 +21,10 @@ st.set_page_config(
 )
 
 # ==========================================
-# 4. LOAD GLOBAL CSS
+# 3. LOAD GLOBAL CSS
 # ==========================================
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
 def load_global_css(file_name):
     css_path = os.path.join(BASE_DIR, file_name)
     try:
@@ -47,7 +36,7 @@ def load_global_css(file_name):
 load_global_css("style.css")
 
 # ==========================================
-# 5. INITIALIZATION SESSION STATE
+# 4. INITIALIZATION SESSION STATE
 # ==========================================
 if 'step' not in st.session_state:
     st.session_state.step = 0
@@ -61,7 +50,7 @@ if 'ritual_started' not in st.session_state:
     st.session_state.ritual_started = False
 
 # ==========================================
-# 6. ROUTER UTAMA
+# 5. ROUTER UTAMA
 # ==========================================
 if st.session_state.step == 0:
     render_step_0()
