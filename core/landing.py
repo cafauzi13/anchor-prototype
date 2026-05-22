@@ -3,16 +3,12 @@ import streamlit as st
 import streamlit.components.v1 as components
 
 def render_step_0():
-    # 1. RESOLUSI PATH DINAMIS
-    # Mencari tahu direktori saat ini (src/) dan naik satu tingkat ke direktori utama (root)
+    # Ambil path dari dalam folder 'core' lalu naik ke root
     CURRENT_DIR = os.path.dirname(os.path.abspath(__file__)) 
     BASE_DIR = os.path.dirname(CURRENT_DIR) 
 
-    # Asumsi code.html ada di dalam sub-folder anchor_landing di root directory
-    # Ubah "anchor_landing" jika nama foldernya berbeda di struktur Anda
+    # Asumsi code.html ada di dalam sub-folder anchor_landing
     html_path = os.path.join(BASE_DIR, "anchor_landing", "code.html") 
-
-    # Fallback jika code.html ada di root directory utama
     fallback_path = os.path.join(BASE_DIR, "code.html")
 
     # 2. BACA FILE HTML
