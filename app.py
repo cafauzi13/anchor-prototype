@@ -2,16 +2,22 @@ import os
 import sys
 import streamlit as st
 
-# ==========================================
-# 1. MANAGEMENT PATH DINAMIS & AMAN
-# ==========================================
+# 1. MANAGEMENT PATH
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 if BASE_DIR not in sys.path:
-    sys.path.insert(0, BASE_DIR)
+    sys.path.append(BASE_DIR)
 
-# ==========================================
+# --- DEBUGGING SEMENTARA (TAMPILKAN DI LAYAR STREAMLIT) ---
+# Hapus atau comment blok ini kalau aplikasi sudah jalan normal
+st.write("Current Working Directory:", os.getcwd())
+st.write("Isi folder root:", os.listdir(BASE_DIR))
+try:
+    st.write("Isi folder src:", os.listdir(os.path.join(BASE_DIR, "src")))
+except FileNotFoundError:
+    st.error("Folder 'src' BENAR-BENAR TIDAK DITEMUKAN oleh sistem Streamlit!")
+# ----------------------------------------------------------
+
 # 2. IMPOR MODUL DARI FOLDER SRC
-# ==========================================
 try:
     from src.landing import render_step_0
 except ModuleNotFoundError as e:
