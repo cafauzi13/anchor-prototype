@@ -25,10 +25,11 @@ def render_step_0():
 
     # 3. RENDER BACKGROUND & HERO VISUAL
     # Dipotong tinggi renderingnya agar tombol CTA bisa dihandle native oleh Streamlit
-    components.html(html_content, height=720, scrolling=True)
+    components.html(html_content, height=660, scrolling=False) # Sesuaikan height agar pas
+
 
     # 4. INTERAKSI TOMBOL (CTA BUTTON NATIVE STREAMLIT)
-    st.markdown('<div style="margin-top: -80px; position: relative; z-index: 999;">', unsafe_allow_html=True)
+    st.markdown('<div style="margin-top: -140px; position: relative; z-index: 999; padding: 0 40px;">', unsafe_allow_html=True)
     if st.button("Enter Anchor Mode →", key="start_anchor_btn"):
         st.session_state.step = 1
         st.rerun()
